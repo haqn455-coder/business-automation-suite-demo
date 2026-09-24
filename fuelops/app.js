@@ -1,7 +1,8 @@
 (()=>{
 'use strict';
 const F=window.FuelOps,KEY='fuelops_suite_demo_v1';let state,filter='ALL',selected=null;
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+function esc(s){return String(s??'').replace(/[&<>\"']/g,function(c){if(c==='&')return '&amp;';if(c==='<')return '&lt;';if(c==='>')return '&gt;';if(c==='\"')return '&quot;';return '&#39;';});}
 function load(){try{state=JSON.parse(localStorage.getItem(KEY))}catch(e){} if(!state)state=F.initialState()}
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function openExceptions(){return state.exceptions.filter(e=>e.status!=='RESOLVED')}
