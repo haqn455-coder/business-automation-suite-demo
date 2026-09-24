@@ -24,3 +24,6 @@ jobs:
           grep -q "SYNTHETIC DEMO" fuelops/index.html
           grep -q "OWNER ATTENTION REQUIRED" fuelops/index.html
           grep -q "Audit history" fuelops/index.html
+          grep -q 'id="toast"' fuelops/index.html
+          grep -q 'data-pulse="fuel"' fuelops/index.html
+          grep -q "\[data-pulse\]" fuelops/app.js
