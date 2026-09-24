@@ -1,0 +1,22 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+function el(dataset={}){return{dataset,hidden:false,innerHTML:'',textContent:'',onclick:null,classList:{add(){},remove(){},toggle(){}},setAttribute(){}}}
+const one={'#toast':el(),'#drawer':el(),'#backdrop':el(),'#closeDrawer':el(),'#drawerBody':el(),'#auditList':el()};
+const views=[el({viewName:'owner'}),el({viewName:'fuel'}),el({viewName:'led'}),el({viewName:'solar'})];
+const nav=[el({viewTarget:'owner'}),el({viewTarget:'fuel'}),el({viewTarget:'led'}),el({viewTarget:'solar'})];
+const seg=[el({segment:'fuel:network'}),el({segment:'fuel:site'}),el({segment:'led:wholesale'}),el({segment:'led:local'}),el({segment:'solar:wholesale'}),el({segment:'solar:local'})];
+const sub=[el({module:'fuel',segmentName:'network'}),el({module:'fuel',segmentName:'site'}),el({module:'led',segmentName:'wholesale'}),el({module:'led',segmentName:'local'}),el({module:'solar',segmentName:'wholesale'}),el({module:'solar',segmentName:'local'})];
+const opens=[el({open:'sol-import'}),el({open:'led-credit'}),el({open:'fuel-hsd'})];
+const lists={'.view':views,'[data-view-target]':nav,'[data-segment]':seg,'[data-subview]':sub,'[data-open]':opens,'[data-action]':[]};
+const document={querySelector:s=>one[s]||el(),querySelectorAll:s=>lists[s]||[],addEventListener(){}};
+const store={};const context={console,document,Date,JSON,localStorage:{getItem:k=>store[k]||null,setItem:(k,v)=>store[k]=v},setTimeout:()=>1,clearTimeout(){},window:{scrollTo(){}}};
+context.window.window=context.window;vm.createContext(context);
+vm.runInContext(fs.readFileSync(__dirname+'/app.js','utf8'),context,{filename:'app.js'});
+assert.equal(typeof nav[0].onclick,'function','owner navigation handler missing');
+assert.equal(typeof nav[1].onclick,'function','fuel navigation handler missing');
+assert.equal(typeof seg[0].onclick,'function','fuel segment handler missing');
+assert.equal(typeof seg[2].onclick,'function','LED segment handler missing');
+assert.equal(typeof seg[4].onclick,'function','Solar segment handler missing');
+assert.equal(typeof opens[0].onclick,'function','exception drill-down handler missing');
+assert.equal(typeof one['#closeDrawer'].onclick,'function','drawer close handler missing');
+assert.ok(one['#auditList'].innerHTML.includes('No owner actions yet'),'audit did not initialize');
+console.log('PASS GroupOps startup smoke');
