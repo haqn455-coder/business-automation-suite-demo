@@ -21,6 +21,13 @@ jobs:
           node --check fuelops/app.js
       - name: Verify FuelOps deterministic baseline
         run: node fuelops/test_logic.js
+      - name: Verify event wiring invariants
+        run: |
+          grep -q "function toast" fuelops/app.js
+          grep -q "\$\$('\[data-go\]')" fuelops/app.js
+          grep -q "\$\$('\[data-pulse\]')" fuelops/app.js
+          ! grep -Fq "$('[data-go]').forEach" fuelops/app.js
+          ! grep -Fq "$('[data-pulse]').forEach" fuelops/app.js
       - name: Verify public-safe demo surfaces
         run: |
           test -f index.html
