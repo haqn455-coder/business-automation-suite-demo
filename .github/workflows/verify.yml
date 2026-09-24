@@ -1,0 +1,26 @@
+name: Verify Public Demo
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify FuelOps deterministic baseline
+        run: node fuelops/test_logic.js
+      - name: Verify public-safe demo surfaces
+        run: |
+          test -f index.html
+          test -f fuelops/index.html
+          grep -q "SYNTHETIC DEMO" fuelops/index.html
+          grep -q "OWNER ATTENTION REQUIRED" fuelops/index.html
+          grep -q "Audit history" fuelops/index.html
