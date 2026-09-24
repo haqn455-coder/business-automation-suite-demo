@@ -5,6 +5,7 @@ This repository contains **sanitized synthetic demo artifacts only**.
 Canonical commercial source remains private in `haqn455-coder/business-automation-suite`.
 
 ## Current demos
+- `/groupops/` — GroupOps Owner Control Center (Petrol + LED + Solar)
 - `/fuelops/` — FuelOps Control Tower
 
 ## Public-repo boundary
