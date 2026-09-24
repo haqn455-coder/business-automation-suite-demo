@@ -1,0 +1,12 @@
+const assert=require('assert');
+const F=require('./logic.js');
+const s=F.initialState();
+const m=F.summary(s);
+assert.equal(s.sites.length,28);
+assert.equal(s.exceptions.length,6);
+assert.equal(m.red,3);
+assert.equal(m.amber,3);
+assert.equal(m.exposure,718030);
+const fuel=s.exceptions.find(x=>x.id==='EX-007-HSD');
+assert.equal(fuel.exposure,173030);
+console.log('PASS public FuelOps artifact',m);
