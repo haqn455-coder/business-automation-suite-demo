@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07101d">
+<title>GroupOps Owner Control Center — Synthetic Demo</title>
+<style>
+:root{--bg:#07101d;--panel:#0c1727;--panel2:#102039;--line:#223751;--text:#f6f8fc;--muted:#93a7bf;--blue:#70b8ff;--green:#72dfa7;--amber:#ffc65c;--red:#ff7b88}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(#07101d,#0b1726 55%,#07101d);color:var(--text);font:14px Inter,system-ui,Segoe UI,Arial,sans-serif;min-height:100vh}button,a,input{font:inherit}button{touch-action:manipulation}
+.app{max-width:1500px;margin:auto;padding:12px 16px 46px}.top{position:sticky;top:0;z-index:20;background:#07101df2;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff10;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0}.brand{display:flex;gap:10px;align-items:center}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#19c6d7,#3b82f6,#8b5cf6);display:grid;place-items:center;font-weight:900;font-size:18px}.brand h1{margin:0;font-size:17px}.brand p{margin:2px 0 0;color:var(--muted);font-size:11px}.badge{border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:#9eeafa;font-size:10px;font-weight:900}.nav{display:flex;gap:6px;overflow:auto;padding:11px 0}.nav button,.seg button,.action,.division,.rowbtn{border:1px solid var(--line);background:#0c192b;color:#dbe8f5;border-radius:10px;padding:8px 10px;cursor:pointer}.nav button.active,.seg button.active{background:#17385e;border-color:#3674b4;color:#fff}
+.view[hidden],.subview[hidden]{display:none!important}.hero{display:grid;grid-template-columns:1.4fr .75fr;gap:15px;padding:28px 0 15px;align-items:end}.eyebrow{color:#82c9ff;font-size:11px;font-weight:900;letter-spacing:.14em}.hero h2{font-size:clamp(30px,4vw,49px);line-height:1.03;margin:7px 0}.hero p{color:var(--muted);line-height:1.55;max-width:800px;margin:0}.brief{background:linear-gradient(135deg,#10243d,#0c1929);border:1px solid #284460;border-radius:16px;padding:15px}.brief b{display:block;font-size:10px;color:#91c8f5;letter-spacing:.1em;margin-bottom:6px}.brief span{line-height:1.5}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:17px}.kpi{border:1px solid var(--line);background:#0c1727;border-radius:15px;padding:13px;min-height:94px}.kpi span{display:block;color:var(--muted);text-transform:uppercase;font-size:9px;letter-spacing:.08em;font-weight:800}.kpi strong{display:block;font-size:21px;margin:9px 0 2px}.red{color:var(--red)}.amber{color:var(--amber)}.green{color:var(--green)}
+.divisions{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:17px}.division{text-align:left;padding:16px;border-radius:16px;background:linear-gradient(145deg,#0e1d31,#0b1727)}.division small{font-size:10px;color:#83dcae;font-weight:900}.division h3{font-size:21px;margin:7px 0}.division p{color:var(--muted);line-height:1.45;min-height:60px}.division b{color:var(--blue)}
+.grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(300px,.75fr);gap:13px}.panel{border:1px solid var(--line);background:#0c1727;border-radius:16px;overflow:hidden}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid var(--line)}.head h3{margin:0;font-size:15px}.head p{margin:3px 0 0;color:var(--muted);font-size:11px}.rows{padding:0}.rowbtn{border:0;border-bottom:1px solid #172a41;border-radius:0;background:transparent;width:100%;display:grid;grid-template-columns:90px 140px 1fr 130px 80px;gap:10px;align-items:center;text-align:left;padding:12px 14px}.rowbtn:last-child{border-bottom:0}.rowbtn:hover{background:#102037}.sev{display:inline-flex;width:max-content;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900}.sev.RED{background:#371a24;color:#ff8b96}.sev.AMBER{background:#342916;color:#ffd064}.meta{color:var(--muted);font-size:11px}.money{font-weight:900}.side{padding:12px}.side article{border:1px solid #203650;border-radius:12px;padding:11px;margin-bottom:8px;background:#0d1a2c}.side article:last-child{margin-bottom:0}.side h4{margin:0 0 4px}.side p{margin:0;color:var(--muted);font-size:11px}.side b{display:block;margin-top:7px;color:var(--green)}
+.section{padding-top:18px}.title{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:9px}.title h2{margin:0;font-size:22px}.title p{margin:3px 0 0;color:var(--muted);font-size:12px}.seg{display:flex;gap:6px;flex-wrap:wrap}.back{color:var(--blue);text-decoration:none;font-weight:800}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border:1px solid var(--line);background:#0c1727;border-radius:15px;padding:13px}.card h4{margin:0 0 7px;font-size:14px}.card p{margin:0;color:var(--muted);font-size:11px;line-height:1.45}.card strong{display:block;margin-top:9px;font-size:17px}.card button{margin-top:10px}
+.scroll{overflow:auto}.tbl{width:100%;border-collapse:collapse;min-width:850px}.tbl th,.tbl td{padding:10px 12px;border-bottom:1px solid #17293e;text-align:left;font-size:12px}.tbl th{background:#0a1625;color:#90a4ba;font-size:9px;text-transform:uppercase;letter-spacing:.08em;position:sticky;top:0}.tbl td small{display:block;color:#74879f;margin-top:2px}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:11px 0}.flow div{border:1px solid #28415e;border-radius:11px;padding:9px;background:#0d1b2e;text-align:center}.flow span{display:block;color:#8196ad;font-size:9px}.flow b{display:block;margin-top:4px;font-size:11px}
+.cockpit{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stack{display:grid;gap:9px}.metric{border:1px solid #223852;border-radius:12px;padding:11px;background:#0d1b2d}.metric span{display:block;color:#879bb2;font-size:9px;text-transform:uppercase}.metric b{display:block;font-size:16px;margin-top:4px}.metric small{color:#7589a1}
+.notice{border-left:3px solid #4e8bd1;background:#0e1d30;padding:11px;border-radius:0 11px 11px 0;color:#cfe0ef;line-height:1.45}
+.audit{padding:12px}.audit div{border-left:1px solid #2c4969;padding:0 0 10px 12px}.audit b{display:block;font-size:11px}.audit small{color:#8398b0}
+.backdrop{position:fixed;inset:0;background:#000a;display:none;z-index:40}.backdrop.show{display:block}.drawer{position:fixed;right:0;top:0;bottom:0;width:min(610px,100%);background:#081321;border-left:1px solid #2a4462;z-index:50;transform:translateX(102%);transition:.2s;overflow:auto}.drawer.show{transform:none}.drawerHead{position:sticky;top:0;background:#081321f2;padding:12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.drawerBody{padding:15px 15px 40px}.drawerBody h2{margin:7px 0 10px}.drawerBody h3{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#8da3bc;margin:18px 0 7px}.detailgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.detailgrid div{border:1px solid #223852;border-radius:10px;padding:10px}.detailgrid span{display:block;color:#8398b0;font-size:9px}.evidence div{border:1px solid #1f324a;border-radius:9px;padding:8px;margin-bottom:6px;background:#0c1929}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.actions button{border:1px solid #294463;background:#10233a;color:#e8f2fb;border-radius:9px;padding:8px 10px;cursor:pointer}.actions .danger{background:#6e1f2a}.actions .primary{background:#1f6feb}.toast{position:fixed;left:50%;bottom:20px;z-index:80;transform:translate(-50%,12px);opacity:0;transition:.18s;background:#12253d;border:1px solid #365b82;border-radius:11px;padding:9px 13px;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+.footer{text-align:center;color:#71859c;font-size:10px;padding:28px 0}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.divisions{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.flow{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.app{padding:9px 10px 38px}.brand p,.badge.secondary{display:none}.hero{grid-template-columns:1fr;padding-top:20px}.kpis{grid-template-columns:repeat(2,1fr)}.cards,.cockpit{grid-template-columns:1fr}.rowbtn{grid-template-columns:70px 1fr 100px;padding:11px}.rowbtn span:nth-child(2){grid-column:2/4}.rowbtn span:nth-child(3){grid-column:2/4}.flow{grid-template-columns:repeat(2,1fr)}.title{align-items:flex-start;flex-direction:column}.detailgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand"><div class="logo">GO</div><div><h1>GroupOps Owner Control Center</h1><p>Business Automation Suite · Petrol · LED · Solar</p></div></div>
+  <div><span class="badge">SYNTHETIC DEMO</span> <span class="badge secondary">OWNER VIEW</span></div>
+</header>
+<nav class="nav">
+  <button class="active" data-view-target="owner">Group Owner</button>
+  <button data-view-target="fuel">Petrol Pumps</button>
+  <button data-view-target="led">LED</button>
+  <button data-view-target="solar">Solar</button>
+</nav>
+
+<main>
+<section class="view" data-view-name="owner">
+  <div class="hero">
+    <div><div class="eyebrow">GROUP CONTROL — ONE SCREEN, THREE BUSINESSES</div><h2>See where money, stock and accountability need attention.</h2><p>A prospect-ready synthetic control layer connecting petrol retail, LED import/wholesale and Solar import/projects/O&amp;M without pretending they are the same business.</p></div>
+    <div class="brief"><b>OWNER MORNING BRIEF</b><span>3 divisions · 28 fuel sites · 4 import consignments · 6 priority exceptions · highest current synthetic exposure: Solar shipment landed-cost drift.</span></div>
+  </div>
+  <div class="kpis">
+    <article class="kpi"><span>Open exposure</span><strong class="red">Rs 8.71m</strong><small class="meta">Synthetic control exposure</small></article>
+    <article class="kpi"><span>Receivables at risk</span><strong class="amber">Rs 3.20m</strong><small class="meta">Dealer + project</small></article>
+    <article class="kpi"><span>Imports in transit</span><strong>4</strong><small class="meta">Solar + LED consignments</small></article>
+    <article class="kpi"><span>Fuel sites</span><strong>28</strong><small class="meta">5 require action</small></article>
+    <article class="kpi"><span>Owner approvals</span><strong class="amber">4</strong><small class="meta">Credit / claim / variance</small></article>
+  </div>
+
+  <div class="divisions">
+    <button class="division" data-view-target="solar"><small>PRIMARY TECHNICAL HOOK</small><h3>Solar</h3><p>China sourcing, shipment/landed cost, wholesale inventory, dealer credit, project installation and owned-site performance.</p><b>Open Solar control →</b></button>
+    <button class="division" data-view-target="led"><small>IMPORT + WHOLESALE</small><h3>LED</h3><p>Supplier batches, landed cost, technical QC metadata, dealer orders, margins, warranty and local projects.</p><b>Open LED control →</b></button>
+    <button class="division" data-view-target="fuel"><small>28-SITE CONTROL</small><h3>Petrol Pumps</h3><p>Network exceptions, OMC-aware product mapping, shift reconciliation, cash/credit exposure and accountable closure.</p><b>Open Fuel control →</b></button>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <div class="head"><div><h3>GROUP ATTENTION REQUIRED</h3><p>Cross-division exceptions prioritized by business exposure.</p></div></div>
+      <div class="rows">
+        <button class="rowbtn" data-open="sol-import"><b class="sev RED">RED</b><span><b>Solar Import</b><small class="meta">Consignment SOL-CN-2409</small></span><span><b>Landed-cost drift after FX + freight change</b><small class="meta">Existing dealer quotations now below target margin</small></span><span class="money">Rs 4.80m</span><span>Open →</span></button>
+        <button class="rowbtn" data-open="led-credit"><b class="sev RED">RED</b><span><b>LED Wholesale</b><small class="meta">Dealer — Multan</small></span><span><b>Credit exposure above approved limit</b><small class="meta">Dispatch hold requires owner/finance decision</small></span><span class="money">Rs 2.20m</span><span>Open →</span></button>
+        <button class="rowbtn" data-open="led-qc"><b class="sev RED">RED</b><span><b>LED QC</b><small class="meta">Batch LED-CN-77</small></span><span><b>Driver sample failure above acceptance threshold</b><small class="meta">Affected batch quarantined in synthetic warehouse</small></span><span class="money">Rs 1.05m</span><span>Open →</span></button>
+        <button class="rowbtn" data-open="sol-performance"><b class="sev AMBER">AMBER</b><span><b>Solar O&amp;M</b><small class="meta">Owned Site S-04</small></span><span><b>Weather-adjusted production below baseline</b><small class="meta">Inverter availability + string review required</small></span><span class="money">Rs 402k</span><span>Open →</span></button>
+        <button class="rowbtn" data-open="fuel-hsd"><b class="sev AMBER">AMBER</b><span><b>Fuel Site 07</b><small class="meta">HSD reconciliation</small></span><span><b>Physical closing stock below expected balance</b><small class="meta">605 L synthetic variance</small></span><span class="money">Rs 173k</span><span>Open →</span></button>
+        <button class="rowbtn" data-open="fuel-cash"><b class="sev AMBER">AMBER</b><span><b>Fuel Site 14</b><small class="meta">Cash / bank</small></span><span><b>Verified deposit below expected cash</b><small class="meta">Shift settlement exception</small></span><span class="money">Rs 85k</span><span>Open →</span></button>
+      </div>
+    </section>
+    <aside class="panel"><div class="head"><div><h3>Today’s control pulse</h3><p>What needs an owner vs what stays operational.</p></div></div><div class="side">
+      <article><h4>Imports</h4><p>2 Solar + 2 LED synthetic consignments in active pipeline.</p><b>1 landed-cost exception</b></article>
+      <article><h4>Wholesale</h4><p>Dealer orders, credit limits, dispatch and receivables.</p><b>1 dispatch approval held</b></article>
+      <article><h4>Operations</h4><p>Fuel site shifts + local Solar/LED project/site activity.</p><b>3 operational exceptions</b></article>
+    </div></aside>
+  </div>
+
+  <div class="section"><div class="title"><div><h2>Owner audit</h2><p>Synthetic actions performed in this browser appear here.</p></div></div><div class="panel audit" id="auditList"></div></div>
+</section>
+
+<section class="view" data-view-name="fuel" hidden>
+  <div class="section">
+    <div class="title"><div><div class="eyebrow">PETROL PUMPS</div><h2>28-site network + representative station cockpit</h2><p>Frozen FuelOps V1 is reused; this layer shows where the owner numbers originate at one site.</p></div><a class="back" href="../fuelops/">Open full FuelOps V1 →</a></div>
+    <div class="seg"><button class="active" data-segment="fuel:network">Network</button><button data-segment="fuel:site">Fuel Site 07</button></div>
+
+    <div class="subview" data-subview data-module="fuel" data-segment-name="network">
+      <div class="kpis" style="margin-top:12px">
+        <article class="kpi"><span>Sites</span><strong>28</strong><small class="meta">Multi-city synthetic network</small></article>
+        <article class="kpi"><span>Open exceptions</span><strong class="red">6</strong><small class="meta">3 red / 3 amber</small></article>
+        <article class="kpi"><span>Fuel exposure</span><strong>Rs 173k</strong><small class="meta">Highest stock variance</small></article>
+        <article class="kpi"><span>Cash mismatch</span><strong>Rs 85k</strong><small class="meta">Site 14</small></article>
+        <article class="kpi"><span>Credit breach</span><strong>Rs 460k</strong><small class="meta">Group fleet account</small></article>
+      </div>
+      <div class="panel scroll"><table class="tbl"><thead><tr><th>Site</th><th>OMC profile</th><th>Products</th><th>Shift</th><th>Manager</th><th>Health</th><th>Owner action</th></tr></thead><tbody>
+        <tr><td><b>Fuel Site 07</b><small>P07 · Central</small></td><td>Configurable OMC profile</td><td>Regular + HSD + Premium</td><td>Night</td><td>Manager 07</td><td class="red"><b>RED</b></td><td><button class="action" data-segment="fuel:site">Open site</button></td></tr>
+        <tr><td><b>Fuel Site 14</b><small>P14 · South</small></td><td>Configurable OMC profile</td><td>Regular + HSD</td><td>Day</td><td>Manager 14</td><td class="red"><b>RED</b></td><td><button class="action" data-open="fuel-cash">Cash issue</button></td></tr>
+        <tr><td><b>Fuel Site 21</b><small>P21 · East</small></td><td>Configurable OMC profile</td><td>Regular + HSD</td><td>Day</td><td>Manager 21</td><td class="amber"><b>AMBER</b></td><td><button class="action" data-open="sol-performance">Energy issue</button></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="subview" data-subview data-module="fuel" data-segment-name="site" hidden>
+      <div class="flow"><div><span>01</span><b>Opening stock</b></div><div><span>02</span><b>Delivery</b></div><div><span>03</span><b>Nozzle sales</b></div><div><span>04</span><b>Cash / card / credit</b></div><div><span>05</span><b>Physical close</b></div><div><span>06</span><b>Exception → owner</b></div></div>
+      <div class="cockpit">
+        <div class="stack">
+          <div class="panel"><div class="head"><div><h3>Site profile</h3><p>Synthetic configurable forecourt</p></div></div><div class="side">
+            <article><h4>Duty team</h4><p>Manager 07 · Shift Supervisor 07 · 4 nozzle operators</p><b>Night shift active</b></article>
+            <article><h4>Product map</h4><p>Regular Petrol — Tank P-01 → D1/D2 · HSD — Tank D-01 → D3 · Premium — Tank H-01 → D4</p><b>OMC label configurable per site</b></article>
+          </div></div>
+          <div class="panel"><div class="head"><div><h3>HSD reconciliation</h3><p>Deterministic shift control</p></div></div><div class="side">
+            <article><p>Opening 18,500 L + Delivery 12,000 L − Meter sales 9,875 L</p><b>Expected close 20,625 L</b></article>
+            <article><p>Physical close 20,020 L · variance −605 L · synthetic unit cost Rs 286/L</p><b class="red">Exposure Rs 173,030</b></article>
+            <button class="action" data-open="fuel-hsd">Open evidence & accountability</button>
+          </div></div>
+        </div>
+        <div class="panel"><div class="head"><div><h3>Shift inputs → owner data</h3><p>Illustrative source-of-truth chain</p></div></div><div class="side">
+          <article><h4>Operator</h4><p>Opening/closing meter readings, physical tank dip, cash/card/credit split, fault report.</p><b>Structured mobile capture</b></article>
+          <article><h4>Manager</h4><p>Delivery receipt, evidence, variance explanation, shift close approval.</p><b>Accountable response</b></article>
+          <article><h4>Finance / owner</h4><p>Deposit verification, dealer/fleet credit, exception approval and closure.</p><b>Only exceptions escalate</b></article>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" data-view-name="led" hidden>
+  <div class="section">
+    <div class="title"><div><div class="eyebrow">LED BUSINESS</div><h2>Import & wholesale first — local projects second</h2><p>China sourcing to Pakistani dealer/customer, with technical batch QC and connected local project operations.</p></div></div>
+    <div class="seg"><button class="active" data-segment="led:wholesale">Import / Wholesale</button><button data-segment="led:local">Local Project / Site</button></div>
+
+    <div class="subview" data-subview data-module="led" data-segment-name="wholesale">
+      <div class="flow"><div><span>01</span><b>Supplier / sample</b></div><div><span>02</span><b>PO / shipment</b></div><div><span>03</span><b>Landed cost</b></div><div><span>04</span><b>Warehouse / QC</b></div><div><span>05</span><b>Dealer order</b></div><div><span>06</span><b>Credit / dispatch</b></div></div>
+      <div class="grid">
+        <section class="panel scroll"><table class="tbl"><thead><tr><th>Consignment / batch</th><th>Product</th><th>Stage</th><th>Qty</th><th>Landed cost</th><th>QC</th><th>Action</th></tr></thead><tbody>
+          <tr><td><b>LED-CN-77</b><small>China supplier A</small></td><td>150W street light</td><td>Warehouse received</td><td>1,200</td><td>Rs 18,940/unit</td><td class="red"><b>HOLD</b></td><td><button class="action" data-open="led-qc">Open QC</button></td></tr>
+          <tr><td><b>LED-CN-81</b><small>China supplier B</small></td><td>100W high-bay</td><td>In transit</td><td>800</td><td>Rs 14,220/unit</td><td class="green"><b>PRE-SHIP PASS</b></td><td>ETA tracked</td></tr>
+          <tr><td><b>DRV-CN-19</b><small>Driver supplier</small></td><td>Programmable drivers</td><td>Customs docs</td><td>1,600</td><td>Rs 4,180/unit</td><td>Docs pending</td><td>Compliance pack</td></tr>
+        </tbody></table></section>
+        <aside class="panel"><div class="head"><div><h3>Technical product card</h3><p>Illustrative LED metadata</p></div></div><div class="side">
+          <article><h4>150W Road Luminaire — Batch LED-CN-77</h4><p>21,750 lm · 145 lm/W · 4000K · CRI 70+ · PF 0.96 · THD 9% · IP66 · surge 10kV</p><b>LM-79 document: on file · warranty: 5 years (synthetic)</b></article>
+          <article><h4>QC exception</h4><p>Sample driver failures above configured acceptance threshold; batch held before dealer dispatch.</p><b class="red">Rs 1.05m exposure</b></article>
+        </div></aside>
+      </div>
+      <div class="section"><div class="title"><div><h2>Dealer orders & credit</h2><p>Wholesale pricing, margin and dispatch gate.</p></div></div><div class="panel scroll"><table class="tbl"><thead><tr><th>Dealer</th><th>City</th><th>Order</th><th>Gross margin</th><th>Outstanding</th><th>Credit limit</th><th>Dispatch</th></tr></thead><tbody>
+        <tr><td>Dealer M-12</td><td>Multan</td><td>Rs 6.8m</td><td>12.4%</td><td>Rs 5.2m</td><td>Rs 3.0m</td><td><button class="action" data-open="led-credit">HOLD / review</button></td></tr>
+        <tr><td>Dealer L-07</td><td>Lahore</td><td>Rs 4.1m</td><td>14.1%</td><td>Rs 1.1m</td><td>Rs 3.5m</td><td class="green">RELEASED</td></tr>
+      </tbody></table></div></div>
+    </div>
+
+    <div class="subview" data-subview data-module="led" data-segment-name="local" hidden>
+      <div class="cards" style="margin-top:12px">
+        <article class="card"><h4>Road Lighting Retrofit</h4><p>420 synthetic luminaires · BOM approved · installation 72% complete.</p><strong>Project value Rs 24.6m</strong></article>
+        <article class="card"><h4>Margin control</h4><p>Original gross margin 16.2%; landed-cost updates and site variation orders tracked separately.</p><strong>Current forecast 14.8%</strong></article>
+        <article class="card"><h4>Receivable</h4><p>Milestone invoice raised; payment ageing and retention visible to owner.</p><strong class="amber">Rs 3.2m due</strong></article>
+      </div>
+      <div class="section"><div class="panel"><div class="head"><div><h3>Local operating journey</h3><p>Quote → BOM → issue stock → install → inspect → invoice → warranty</p></div></div><div class="side">
+        <article><h4>Site issue</h4><p>12 luminaires awaiting mounting-arm correction; responsible site engineer assigned.</p><b>Evidence + punch-list workflow</b></article>
+        <article><h4>Warranty traceability</h4><p>Installed serial/batch links back to imported batch, dealer/project and supplier claim record.</p><b>Source-to-site traceability</b></article>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" data-view-name="solar" hidden>
+  <div class="section">
+    <div class="title"><div><div class="eyebrow">SOLAR BUSINESS</div><h2>Import & wholesale first — project and owned-site control connected</h2><p>Commercial import pipeline, dealer supply, project execution and performance/O&amp;M in one technical-control journey.</p></div></div>
+    <div class="seg"><button class="active" data-segment="solar:wholesale">Import / Wholesale</button><button data-segment="solar:local">Project / Owned Site</button></div>
+
+    <div class="subview" data-subview data-module="solar" data-segment-name="wholesale">
+      <div class="flow"><div><span>01</span><b>RFQ / supplier</b></div><div><span>02</span><b>PO / container</b></div><div><span>03</span><b>PSW / customs</b></div><div><span>04</span><b>Landed cost</b></div><div><span>05</span><b>Warehouse</b></div><div><span>06</span><b>Dealer / project allocation</b></div></div>
+      <div class="grid">
+        <section class="panel scroll"><table class="tbl"><thead><tr><th>Consignment</th><th>Goods</th><th>Supplier</th><th>Stage</th><th>PO value</th><th>Margin effect</th><th>Action</th></tr></thead><tbody>
+          <tr><td><b>SOL-CN-2409</b><small>40ft synthetic container</small></td><td>610W PV modules</td><td>Supplier CN-A</td><td class="amber">In transit / ETA +9d</td><td>USD 188k</td><td class="red">−3.8 pts</td><td><button class="action" data-open="sol-import">Open exposure</button></td></tr>
+          <tr><td><b>INV-CN-44</b></td><td>50kW hybrid inverters</td><td>Supplier CN-B</td><td>Customs docs</td><td>USD 96k</td><td>On plan</td><td>Docs tracked</td></tr>
+          <tr><td><b>BAT-CN-12</b></td><td>LFP battery racks</td><td>Supplier CN-C</td><td>Pre-shipment QC</td><td>USD 142k</td><td>On plan</td><td class="green">QC pass</td></tr>
+        </tbody></table></section>
+        <aside class="panel"><div class="head"><div><h3>Landed-cost intelligence</h3><p>Deterministic commercial exposure</p></div></div><div class="side">
+          <article><h4>SOL-CN-2409</h4><p>PO + freight + duties/taxes/fees + inland logistics allocated to SKU/batch. Synthetic FX basis updated from 278 to 284 PKR/USD.</p><b class="red">Expected landed cost +6.2%</b></article>
+          <article><h4>Commercial consequence</h4><p>3 open dealer quotations were priced on old landed cost and fall below target margin.</p><b>Owner pricing decision required</b></article>
+        </div></aside>
+      </div>
+    </div>
+
+    <div class="subview" data-subview data-module="solar" data-segment-name="local" hidden>
+      <div class="cards" style="margin-top:12px">
+        <article class="card"><h4>Commercial rooftop project</h4><p>250 kWp DC · 200 kW AC · commissioning complete · receivable tracked.</p><strong>Project margin 13.6%</strong></article>
+        <article class="card"><h4>Owned Site S-04</h4><p>350 kWp DC · expected vs actual monitored with availability + weather-adjusted baseline.</p><strong class="amber">18% below baseline</strong><button class="action" data-open="sol-performance">Open exception</button></article>
+        <article class="card"><h4>Prosumer / compliance</h4><p>DISCO/prosumer documentation, concurrence/status and evidence tracked as configurable fields.</p><strong>Docs status: review</strong></article>
+      </div>
+      <div class="section"><div class="cockpit">
+        <div class="panel"><div class="head"><div><h3>Owned Site S-04 performance</h3><p>Illustrative O&amp;M metrics</p></div></div><div class="side">
+          <article><h4>Production</h4><p>Expected 1,820 kWh · actual 1,492 kWh today.</p><b>Specific yield 4.26 kWh/kWp</b></article>
+          <article><h4>Availability</h4><p>Inverter fleet availability 92.8%; one inverter had 74 minutes downtime.</p><b class="amber">Review string + inverter event</b></article>
+        </div></div>
+        <div class="panel"><div class="head"><div><h3>Project / O&amp;M source data</h3><p>What feeds owner control</p></div></div><div class="side">
+          <article><h4>Technical</h4><p>Module/inverter model, serial/batch, string/MPPT map, generation, alarms, downtime, cleaning and maintenance events.</p><b>Asset traceability</b></article>
+          <article><h4>Commercial</h4><p>BOM cost, landed-cost allocation, project margin, milestone invoices, receivables and warranty/RMA exposure.</p><b>Technical + financial context together</b></article>
+        </div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="footer">GroupOps Prospect Demo · synthetic data only · no real customer data · no bank credentials · no autonomous financial action · no OMC/vendor endorsement implied</div>
+</div>
+
+<div id="backdrop" class="backdrop"></div>
+<aside id="drawer" class="drawer" aria-hidden="true"><div class="drawerHead"><b>Exception / decision detail</b><button id="closeDrawer" class="action">Close</button></div><div id="drawerBody" class="drawerBody"></div></aside>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
