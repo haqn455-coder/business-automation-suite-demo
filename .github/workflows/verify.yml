@@ -19,10 +19,13 @@ jobs:
         run: |
           node --check fuelops/logic.js
           node --check fuelops/app.js
+          node --check groupops/app.js
       - name: Verify FuelOps deterministic baseline
         run: node fuelops/test_logic.js
       - name: Verify browser startup smoke
-        run: node fuelops/test_runtime_smoke.js
+        run: |
+          node fuelops/test_runtime_smoke.js
+          node groupops/test_runtime_smoke.js
       - name: Verify public-safe demo surfaces
         run: |
           test -f index.html
@@ -33,3 +36,8 @@ jobs:
           grep -q 'id="toast"' fuelops/index.html
           grep -q 'data-pulse="fuel"' fuelops/index.html
           grep -q "\[data-pulse\]" fuelops/app.js
+          test -f groupops/index.html
+          grep -q "GROUP CONTROL" groupops/index.html
+          grep -q "PETROL PUMPS" groupops/index.html
+          grep -q "LED BUSINESS" groupops/index.html
+          grep -q "SOLAR BUSINESS" groupops/index.html
